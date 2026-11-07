@@ -12,14 +12,40 @@
         Вишлист
       </NuxtLink>
       <div class="flex items-center gap-2">
-        <UButton
-          to="/lists"
-          label="Мои вишлисты"
-          color="neutral"
-          variant="ghost"
-        />
         <UColorModeButton />
+        <template v-if="loggedIn && user">
+          <UUser
+            :name="user.name"
+            :description="`@${user.login}`"
+            :avatar="{ src: user.avatarUrl, alt: user.name }"
+            to="/lists"
+          />
+          <UButton
+            icon="i-lucide-log-out"
+            color="neutral"
+            variant="ghost"
+            label="Выйти"
+            @click="logout"
+          />
+        </template>
+        <UButton
+          v-else
+          to="/auth/github"
+          external
+          icon="i-simple-icons-github"
+          label="Войти через GitHub"
+          color="neutral"
+        />
       </div>
     </UContainer>
   </header>
 </template>
+
+<script setup lang="ts">
+const { loggedIn, user, clear } = useUserSession()
+
+async function logout() {
+  await clear()
+  await navigateTo('/')
+}
+</script>
