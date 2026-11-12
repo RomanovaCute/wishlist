@@ -1,12 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   modules: ['@nuxt/eslint', '@nuxt/ui', 'nuxt-auth-utils'],
+  imports: {
+    autoImport: true,
+  },
   devtools: { enabled: true },
   app: {
     head: {
       htmlAttrs: { lang: 'ru' },
-      link: [{rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg'}]
-    }
+      link: [{ rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
+    },
   },
   css: ['~/assets/css/main.css'],
   runtimeConfig: {
@@ -18,8 +21,5 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   eslint: {
     config: { stylistic: true },
-  },
-  imports: {
-    autoImport: true,
   },
 })
